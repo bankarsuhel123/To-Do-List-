@@ -1,0 +1,71 @@
+<div class="container-fluid bg-light">
+    <div class="container bg-light">
+        <div class="row mt-4" style="height: 500px;">
+            <div class="col-md-6 bg-white">
+                <div class="card bg-warning mt-4">
+                    <h4 class="text-white ps-3 pt-2 pb-2">To-do-list</h4>
+                </div>
+                <div>
+                    <div class="shadow">
+                        <div class="input-group p-3">
+                            <div class="form-group mb-3">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Task Name"
+                                        [(ngModel)]="addTaskValue" pattern="[a-zA-Z][a-zA-Z ]+"
+                                        [(ngModel)]="model.task_name" name="task_name" id="task_name"
+                                        #task_name="ngModel" aria-label="Recipient's username" required
+                                        aria-describedby="button-addon2">
+                                    <button class="btn btn-outline-success" type="button" id="button-addon2"
+                                        (click)="addTask()">+</button>
+                                </div>
+                                <div *ngIf="task_name.invalid && task_name.touched" class="alert alert-danger">
+                                    <div [hidden]="!task_name.hasError('required')">Name is required</div>
+                                    <div [hidden]="!task_name.hasError('pattern')">Only alphabetsallowed</div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="text-primary m-2">Task : </h4>
+                        <div style="overflow-y: auto; height: 350px;">
+                            <div class="m-3" *ngFor="let item of taskArr">
+                                <div class="p-2 shadow border">
+                                    <div class="input-group row ps-3">
+                                        <div class="card col-md-10 border-0"> {{item.task_name}}
+                                        </div>
+                                        <button class="btn btn-outline-primary col me-2" data-bs-toggle="modal"
+                                            type="button" data-bs-target="#exampleModal" (click)="call(item)">e</button>
+                                        <div class="btn btn-outline-danger col" (click)="deleteTask(item)">X</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Task</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="input-group p-4">
+                                        <input type="text" class="form-control" placeholder="Task Name"
+                                            [(ngModel)]="editTaskValue" aria-label="Recipient's username"
+                                            aria-describedby="button-addon2">
+                                        <button class="btn btn-outline-success" type="button" data-bs-dismiss="modal"
+                                            (click)="editTask()">Update</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
